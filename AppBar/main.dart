@@ -18,9 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -29,8 +28,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   List tabList = <TabElements>[
-    TabElements('Mood', Icons.mood),
-    TabElements('Mood_bad', Icons.mood_bad_outlined)
+    TabElements('mood', Icons.mood),
+    TabElements('bad_outlined', Icons.mood_bad_outlined),
+    TabElements('bad_rounded', Icons.mood_bad_rounded),
+    TabElements('bad_sharp', Icons.mood_bad_sharp),
+    TabElements('outlined', Icons.mood_outlined)
   ];
 
   void _incrementCounter() {
@@ -39,74 +41,87 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _decreaseCounter(){
-    setState(() {
-      _counter--;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: tabList.length,
-        initialIndex: 1,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-            leading: Icon(Icons.west_outlined),
-            actions: <Widget> [
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: _decreaseCounter,
-              ),
-              IconButton(
-                icon: Icon(Icons.baby_changing_station),
-                onPressed: null,
-              ),
-            ],
-            bottom: TabBar(
-              tabs: tabList.map((element){
-                return Tab(
-                  text: element.title,
-                  icon: Icon(element.icon),
-                );
-              }).toList(),
+      length: tabList.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          leading: IconButton(
+            icon: Icon(
+                Icons.west_outlined,
+              color: Colors.white,
             ),
+            onPressed: _incrementCounter,
+            tooltip: 'Exit',
           ),
-          body: TabBarView(
-            children: tabList.map((element){
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'This is ${element.title}',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic
-                    ),
-                  ),
-                  Text(
-                    'Count: $_counter',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontStyle: FontStyle.normal,
-                    ),
-                  ),
-                  Icon(
-                    element.icon,
-                    size: 100,
-                    color: Colors.blue,
-                  ),
-                ],
+          actions: <Widget> [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: null,
+            ),
+            IconButton(
+              icon: Icon(Icons.baby_changing_station),
+              onPressed: null,
+            ),
+          ],
+          bottom: TabBar(
+            tabs: tabList.map((element){
+              return Tab(
+                text: element.title,
+                icon: Icon(element.icon),
               );
             }).toList(),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Touch the add button will increase the count number',
-            child: Icon(Icons.add),
+            isScrollable: true,
+            labelColor: Colors.yellow,
+            unselectedLabelColor: Colors.white,
+            indicatorColor: Colors.yellow,
           ),
         ),
+        body: TabBarView(
+          children: tabList.map((element){
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'This is ${element.title}',
+                  style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontSize: 40,
+                    fontStyle: FontStyle.normal
+                  ),
+                ),
+                Text(
+                  'Now i feel ${element.title}',
+                  style: TextStyle(
+                    color: Colors.purple,
+                    fontSize: 25,
+                    fontStyle: FontStyle.italic
+                  ),
+                ),
+                Text(
+                  'Count: $_counter',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontStyle: FontStyle.normal,
+                  ),
+                ),
+                Icon(
+                  element.icon,
+                  size: 50,
+                  color: Colors.blue,
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Touch the add button will increase the count number',
+          child: Icon(Icons.add),
+        ),
+      ),
     );
   }
 }
