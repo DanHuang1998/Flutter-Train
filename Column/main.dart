@@ -88,9 +88,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontStyle: FontStyle.italic
                   ),
                 ),
-                FadeInImage.assetNetwork(
+                Flexible(
+                  child: FadeInImage.assetNetwork(
                     placeholder: 'asset_image/loading.gif',
                     image: element.img
+                  )
                 )
               ],
             );
